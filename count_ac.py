@@ -5,7 +5,7 @@ import time
 
 cwd = os.getcwd()
 
-contest_id = 'abc373' # コンテストごとにidを変えてください
+contest_id = 'abc372' # コンテストごとにidを変えてください
 
 def get_start_end():
     time.sleep(1)
@@ -36,11 +36,11 @@ def read_member():
         ret.append(name)
     return ret
 
-def is_reated(user_id):
+def is_rated(user_id):
     time.sleep(1)
     share_url = 'https://atcoder.jp/users/{user_id}/history/share/{contest_id}'.format(user_id=user_id, contest_id=contest_id)
     req = rq.get(share_url)
-    req.encodeing = req.apparent_encoding
+    req.encoding = req.apparent_encoding
     if not req:
         return False
     return 'パフォーマンス' in req.text or 'Performance' in req.text
@@ -65,7 +65,7 @@ if __name__ == '__main__':
     count_ac = dict()
     count_rated = 0
     for user_id in members:
-        if not is_reated(user_id):
+        if not is_rated(user_id):
             continue
         count_rated += 1
         ac_list = get_ac_problems(user_id, start, end)
