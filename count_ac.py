@@ -73,7 +73,9 @@ def login_atcoder():
         'csrf_token' : authenticity
     }
     res = session.post(url, data=login_info, cookies=cookie)
-    assert(res)
+    if str(res.text).find('Username or Password is incorrect') != -1:
+        print('Username or Password is incorrect')
+        assert(False)
 
 def get_ac_problems(user_id, start_time, end_time):
     ac_problems = set()
