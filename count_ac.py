@@ -1,11 +1,18 @@
 import requests as rq
+from bs4 import BeautifulSoup as BS
 import os
 import json
 import time
+import datetime
+from getpass import getpass
 
 cwd = os.getcwd()
 
-contest_id = 'abc372' # コンテストごとにidを変えてください
+contest_id = 'abc373' # コンテストごとにidを変えてください
+MAX_PAGE = 5 # 提出ページの最大数
+
+MY_USER_ID = '' # 自分のAtCoderユーザid (毎回入力しなくてもいいようにするにはここに入力してください)
+MY_PASSWORD = '' # password
 
 def get_start_end():
     time.sleep(1)
@@ -16,6 +23,7 @@ def get_start_end():
             start = elem['start_epoch_second']
             end = start + elem['duration_second']
             return start, end
+    print("contest not found")
     assert(False)
 
 def read_member():
@@ -45,21 +53,59 @@ def is_rated(user_id):
         return False
     return 'パフォーマンス' in req.text or 'Performance' in req.text
 
+session = rq.session()
+
+def login_atcoder():
+    url = 'https://atcoder.jp/login'
+    response = session.get(url)
+    bs = BS(response.text, 'html.parser')
+    authenticity = (bs.find(attrs={'name':'csrf_token'})).get('value')
+    cookie = response.cookies
+    user_id = MY_USER_ID
+    password = MY_PASSWORD
+    if user_id == '':
+        user_id = input("自分のAtCoderのユーザidを入力してください : ")
+    if password == '':
+        password = getpass("password : ")
+    login_info = {
+        'username' : user_id,
+        'password' : password,
+        'csrf_token' : authenticity
+    }
+    res = session.post(url, data=login_info, cookies=cookie)
+    if str(res.text).find('Username or Password is incorrect') != -1:
+        print('Username or Password is incorrect')
+        assert(False)
+
 def get_ac_problems(user_id, start_time, end_time):
-    time.sleep(1)
-    url = "https://kenkoooo.com/atcoder/atcoder-api/v3/user/submissions?user={user_id}&from_second={unix_second}".format(user_id=user_id, unix_second=start_time)
-    req = rq.get(url)
-    d = json.loads(req.text)
-    ret = set()
-    for submition in d:
-        if submition['contest_id'] != contest_id:
-            continue
-        if start_time <= submition['epoch_second'] <= end_time:
-            if submition['result'] == 'AC':
-                ret.add(submition['problem_id'])
-    return sorted(list(ret))
+    ac_problems = set()
+    for page in range(1, MAX_PAGE + 1):
+        time.sleep(0.5)
+        url = 'https://atcoder.jp/contests/{contest_id}/submissions?f.LanguageName=&f.Status=&f.Task=&f.User={user_id}&page={page_id}'.format(contest_id=contest_id, user_id=user_id, page_id=page)
+        response = session.get(url)
+        if not response:
+            print("NOT_FOUND")
+            break
+        bs = BS(response.text, 'html.parser')
+        table = bs.select_one('#main-container > div.row > div:nth-child(3) > div > div.table-responsive > table > tbody')
+        if not table:
+            break
+        elems = table.find_all('tr')
+        for elem in elems:
+            sub_time = datetime.datetime.strptime(elem.select_one('time').contents[0], '%Y-%m-%d %H:%M:%S%z')
+            sub_time = int(sub_time.timestamp())
+            if not (start_time <= sub_time < end_time):
+                continue
+            is_ac = elem.select_one('span.label').contents[0]
+            if is_ac != 'AC':
+                continue
+            problem_url = str(elem.select_one('a').attrs['href'])
+            problem = problem_url[problem_url.find('/tasks/') + len('/tasks/'):]
+            ac_problems.add(problem)
+    return sorted(list(ac_problems))
     
 if __name__ == '__main__':
+    login_atcoder()
     start, end = get_start_end()
     members = read_member()
     count_ac = dict()
