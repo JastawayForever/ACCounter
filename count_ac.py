@@ -9,7 +9,7 @@ from getpass import getpass
 cwd = os.getcwd()
 
 contest_id = 'abc373' # コンテストごとにidを変えてください
-MAX_PAGE = 3 # 提出ページの最大数
+MAX_PAGE = 5 # 提出ページの最大数
 
 MY_USER_ID = '' # 自分のAtCoderユーザid (毎回入力しなくてもいいようにするにはここに入力してください)
 MY_PASSWORD = '' # password
