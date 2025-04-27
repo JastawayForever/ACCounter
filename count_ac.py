@@ -4,14 +4,14 @@ import os
 import json
 import time
 import datetime
-from getpass import getpass
+# from getpass import getpass
 # from selenium import webdriver
 # from seleniumbase import Driver
 # from selenium.webdriver.common.by import By
 
 cwd = os.getcwd()
 
-contest_id = 'abc401' # コンテストごとにidを変えてください
+contest_id = 'abc403' # コンテストごとにidを変えてください
 MAX_PAGE = 5 # 提出ページの最大数
 
 MY_USER_ID = '' # 自分のAtCoderユーザid (毎回入力しなくてもいいようにするにはここに入力してください)
