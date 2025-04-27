@@ -14,8 +14,8 @@ cwd = os.getcwd()
 contest_id = 'abc403' # コンテストごとにidを変えてください
 MAX_PAGE = 5 # 提出ページの最大数
 
-MY_USER_ID = '' # 自分のAtCoderユーザid (毎回入力しなくてもいいようにするにはここに入力してください)
-MY_PASSWORD = '' # password
+# MY_USER_ID = '' # 自分のAtCoderユーザid (毎回入力しなくてもいいようにするにはここに入力してください)
+# MY_PASSWORD = '' # password
 
 login_info_file = 'cookies.json'
 
