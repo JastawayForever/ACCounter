@@ -4,10 +4,6 @@ import os
 import json
 import time
 import datetime
-# from getpass import getpass
-# from selenium import webdriver
-# from seleniumbase import Driver
-# from selenium.webdriver.common.by import By
 
 cwd = os.getcwd()
 
