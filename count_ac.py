@@ -110,5 +110,5 @@ if __name__ == '__main__':
                 count_ac[problem] += 1
             else:
                 count_ac[problem] = 1
-    print(count_ac)
+    print(sorted(count_ac.items()))
     print("rated_members =", count_rated)
