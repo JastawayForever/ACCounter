@@ -4,15 +4,16 @@ import os
 import json
 import time
 import datetime
-from getpass import getpass
 
 cwd = os.getcwd()
 
-contest_id = 'abc373' # コンテストごとにidを変えてください
+contest_id = 'abc403' # コンテストごとにidを変えてください
 MAX_PAGE = 5 # 提出ページの最大数
 
-MY_USER_ID = '' # 自分のAtCoderユーザid (毎回入力しなくてもいいようにするにはここに入力してください)
-MY_PASSWORD = '' # password
+# MY_USER_ID = '' # 自分のAtCoderユーザid (毎回入力しなくてもいいようにするにはここに入力してください)
+# MY_PASSWORD = '' # password
+
+login_info_file = 'cookies.json'
 
 def get_start_end():
     time.sleep(1)
@@ -56,26 +57,12 @@ def is_rated(user_id):
 session = rq.session()
 
 def login_atcoder():
-    url = 'https://atcoder.jp/login'
-    response = session.get(url)
-    bs = BS(response.text, 'html.parser')
-    authenticity = (bs.find(attrs={'name':'csrf_token'})).get('value')
-    cookie = response.cookies
-    user_id = MY_USER_ID
-    password = MY_PASSWORD
-    if user_id == '':
-        user_id = input("自分のAtCoderのユーザidを入力してください : ")
-    if password == '':
-        password = getpass("password : ")
-    login_info = {
-        'username' : user_id,
-        'password' : password,
-        'csrf_token' : authenticity
-    }
-    res = session.post(url, data=login_info, cookies=cookie)
-    if str(res.text).find('Username or Password is incorrect') != -1:
-        print('Username or Password is incorrect')
+    with open(cwd + "/" + login_info_file) as f:
+        login_info = json.load(f)
+    if login_info["value"] == "":
+        print("Enter your cookie value (REVEL_SESSION)")
         assert(False)
+    session.cookies.set(login_info["name"], login_info["value"])
 
 def get_ac_problems(user_id, start_time, end_time):
     ac_problems = set()
@@ -107,6 +94,9 @@ def get_ac_problems(user_id, start_time, end_time):
 if __name__ == '__main__':
     login_atcoder()
     start, end = get_start_end()
+    #problemsにコンテスト情報が追加されていない場合は、手動でunix時間を入力してください
+    # start = 1744459200
+    # end = 1744465200
     members = read_member()
     count_ac = dict()
     count_rated = 0
@@ -120,5 +110,5 @@ if __name__ == '__main__':
                 count_ac[problem] += 1
             else:
                 count_ac[problem] = 1
-    print(count_ac)
+    print(sorted(count_ac.items()))
     print("rated_members =", count_rated)
