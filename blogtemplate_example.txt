@@ -1,0 +1,96 @@
+### はじめに
+
+こんにちは！[jastaway](https://x.com/JastawayKyopuro)です。[{upper_id}](https://atcoder.jp/contests/{contest_id})の参加記です！！
+
+#### 目次
+[:contents]
+
+### {upper_id}
+
+参加前の私のレートは<span style="color: {before_rate_color}">{before_rate}</span>でした。
+
+以下、各問題の考察&感想です。
+
+#### A問題
+問題文:
+[https://atcoder.jp/contests/{contest_id}/tasks/{contest_id}_a:title]
+
+KCPCメンバー(rated 参加)のAC数: {a_solve}/{rated_member}
+
+diff: <span style="color: {a_diff_color}">{a_diff}</span>
+
+{a_subtime}に[提出]({a_suburl})、AC。
+
+#### B問題
+
+問題文:
+[https://atcoder.jp/contests/{contest_id}/tasks/{contest_id}_b:title]
+
+KCPCメンバー(rated 参加)のAC数: {b_solve}/{rated_member}
+
+diff: <span style="color: {b_diff_color}">{b_diff}</span>
+
+{b_subtime}に[提出]({b_suburl})、AC。
+
+#### C問題
+問題文:
+[https://atcoder.jp/contests/{contest_id}/tasks/{contest_id}_c:title]
+
+KCPCメンバー(rated 参加)のAC数: {c_solve}/{rated_member}
+
+diff: <span style="color: {c_diff_color}">{c_diff}</span>
+
+{c_subtime}に[提出]({c_suburl})、AC。
+
+#### D問題
+問題文:
+[https://atcoder.jp/contests/{contest_id}/tasks/{contest_id}_d:title]
+
+KCPCメンバー(rated 参加)のAC数: {d_solve}/{rated_member}
+
+diff: <span style="color: {d_diff_color}">{d_diff}</span>
+
+{d_subtime}に[提出]({d_suburl})、AC。
+
+#### E問題
+問題文:
+[https://atcoder.jp/contests/{contest_id}/tasks/{contest_id}_e:title]
+
+KCPCメンバー(rated 参加)のAC数: {e_solve}/{rated_member}
+
+diff: <span style="color: {e_diff_color}">{e_diff}</span>
+
+{e_subtime}に[提出]({e_suburl})、AC。
+
+
+#### F問題
+問題文:
+[https://atcoder.jp/contests/{contest_id}/tasks/{contest_id}_f:title]
+
+KCPCメンバー(rated 参加)のAC数: {f_solve}/{rated_member}
+
+diff: <span style="color: {f_diff_color}">{f_diff}</span>
+
+{f_subtime}に[提出]({f_suburl})、AC。
+
+
+#### G問題
+問題文:
+[https://atcoder.jp/contests/{contest_id}/tasks/{contest_id}_g:title]
+
+KCPCメンバー(rated 参加)のAC数: {g_solve}/{rated_member}
+
+diff: <span style="color: {g_diff_color}">{g_diff}</span>
+
+{g_subtime}に[提出]({g_suburl})、AC。
+
+
+#### コンテスト結果・感想
+{cnt_solve}完（{max_time}）で {rank}位、<span style="color: {perf_color}">{perf}</span>パフォ、レートは<span style="color: {before_rate_color}">{before_rate}</span>→<span style="color: {after_rate_color}">{after_rate}</span>でした。
+
+<script>
+MathJax = {{
+  tex: {{inlineMath: [['$', '$'], ['\\\\(', '\\\\)']]}}
+}};
+</script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
